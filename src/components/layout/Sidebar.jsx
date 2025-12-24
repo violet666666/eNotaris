@@ -1,45 +1,84 @@
 'use client';
 
 import Link from 'next/link';
-import { FiHome, FiUsers, FiFileText, FiDollarSign, FiSettings } from 'react-icons/fi';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  FiHome,
+  FiFileText,
+  FiDollarSign,
+  FiDatabase,
+  FiUsers,
+  FiSettings,
+  FiLogOut,
+} from 'react-icons/fi';
 
 export default function Sidebar() {
+  const pathname = usePathname();
+  const { user, logout } = useAuth();
+
   const menuItems = [
     { name: 'Dashboard', href: '/dashboard', icon: FiHome },
-    { name: 'Pelanggan', href: '/pelanggan', icon: FiUsers },
     { name: 'Lembar Kerja', href: '/lembar-kerja', icon: FiFileText },
     { name: 'Keuangan', href: '/keuangan', icon: FiDollarSign },
-    { name: 'Master Data', href: '/master', icon: FiSettings },
+    { name: 'Master Data', href: '/master', icon: FiDatabase },
+    { name: 'Users', href: '/users', icon: FiUsers },
+    { name: 'Settings', href: '/settings', icon: FiSettings },
   ];
 
+  const isActive = (href) => pathname.startsWith(href);
+
   return (
-    <aside className="w-64 bg-blue-900 text-white h-screen fixed overflow-y-auto">
-      <div className="p-6 border-b border-blue-800">
-        <h1 className="text-2xl font-bold">eNotaris</h1>
-        <p className="text-xs text-blue-300 mt-1">Sistem Notaris Digital</p>
+    <aside className="w-64 bg-white border-r border-gray-200 flex flex-col min-h-screen sticky top-0">
+      {/* Brand */}
+      <div className="p-6 border-b border-gray-200">
+        <h1 className="text-2xl font-bold text-blue-600">eNotaris</h1>
+        <p className="text-sm text-gray-600">Sistem Administrasi</p>
+        {user && (
+          <div className="mt-3 flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+              <span className="text-blue-600 font-semibold text-sm">
+                {user.name?.charAt(0).toUpperCase()}
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium text-gray-900 truncate">{user.name}</p>
+              <p className="text-xs text-gray-500">{user.role}</p>
+            </div>
+          </div>
+        )}
       </div>
-      
-      <nav className="mt-8">
+
+      {/* Menu */}
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {menuItems.map((item) => {
           const Icon = item.icon;
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center px-6 py-3 hover:bg-blue-800 transition-colors border-l-4 border-transparent hover:border-blue-400"
-            >
-              <Icon className="mr-3 text-lg" />
-              <span className="text-sm font-medium">{item.name}</span>
+            <Link key={item.href} href={item.href}>
+              <div
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition ${
+                  isActive(item.href)
+                    ? 'bg-blue-50 text-blue-600 font-semibold'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                <Icon className="text-xl flex-shrink-0" />
+                <span>{item.name}</span>
+              </div>
             </Link>
           );
         })}
       </nav>
 
-      <div className="absolute bottom-0 w-full border-t border-blue-800 p-4">
-        <div className="text-xs text-blue-300">
-          <p className="font-semibold">Eno Tari SH.M.Kn</p>
-          <p className="mt-1">Admin</p>
-        </div>
+      {/* Logout Button */}
+      <div className="p-4 border-t border-gray-200">
+        <button
+          onClick={logout}
+          className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition"
+        >
+          <FiLogOut className="text-xl flex-shrink-0" />
+          <span className="font-semibold">Logout</span>
+        </button>
       </div>
     </aside>
   );
