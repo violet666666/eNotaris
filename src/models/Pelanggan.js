@@ -4,33 +4,42 @@ const pelangganSchema = new mongoose.Schema(
   {
     nama: {
       type: String,
-      required: [true, 'Nama pelanggan diperlukan'],
-    },
-    kategori: {
-      type: String,
-      enum: ['Pribadi', 'Bank/Leasing', 'Perusahaan'],
-      required: [true, 'Kategori diperlukan'],
-    },
-    noTelepon: {
-      type: String,
-      required: [true, 'Nomor telepon diperlukan'],
+      required: [true, 'Nama pelanggan harus diisi'],
+      trim: true,
     },
     email: {
       type: String,
+      sparse: true,
+      trim: true,
     },
-    provinsi: {
+    noTelepon: {
       type: String,
-      required: [true, 'Provinsi diperlukan'],
-    },
-    kabKota: {
-      type: String,
-      required: [true, 'Kabupaten/Kota diperlukan'],
+      required: true,
+      trim: true,
     },
     alamat: {
       type: String,
+      required: true,
+    },
+    kabkotaId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'MasterKabKota',
+    },
+    noKTP: {
+      type: String,
+      unique: true,
+      sparse: true,
+      trim: true,
+    },
+    status: {
+      type: String,
+      enum: ['aktif', 'nonaktif'],
+      default: 'aktif',
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 export default mongoose.models.Pelanggan || mongoose.model('Pelanggan', pelangganSchema);
