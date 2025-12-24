@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import axios from 'axios';
 import Link from 'next/link';
+import TextInput from '@/components/ui/TextInput';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function LoginPage() {
@@ -48,88 +49,99 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
+          <div className="inline-block p-3 bg-white rounded-lg mb-4">
+            <h1 className="text-4xl font-bold text-blue-600">📋</h1>
+          </div>
           <h1 className="text-4xl font-bold text-white mb-2">eNotaris</h1>
           <p className="text-blue-100">Sistem Administrasi Notaris</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-lg shadow-2xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Login
+        <div className="bg-white rounded-xl shadow-2xl p-8 space-y-6">
+          <h2 className="text-2xl font-bold text-gray-900 text-center">
+            Masuk
           </h2>
 
           {/* Error Message */}
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
-              <div className="relative">
-                <FiMail className="absolute left-3 top-3 text-gray-400" />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Masukkan email Anda"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-            </div>
+            <TextInput
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="Masukkan email Anda"
+              icon={FiMail}
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
             {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <div className="relative">
-                <FiLock className="absolute left-3 top-3 text-gray-400" />
+                <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   placeholder="Masukkan password Anda"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 pl-10 pr-10 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
                   {showPassword ? <FiEyeOff /> : <FiEye />}
                 </button>
               </div>
             </div>
 
+            {/* Remember Me */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="remember"
+                className="w-4 h-4 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <label htmlFor="remember" className="text-sm text-gray-600">
+                Ingat saya
+              </label>
+            </div>
+
             {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Loading...' : 'Login'}
+              {loading ? 'Sedang login...' : 'Masuk'}
             </button>
           </form>
 
           {/* Divider */}
-          <div className="my-6 flex items-center gap-4">
-            <div className="flex-1 border-t border-gray-300"></div>
-            <span className="text-gray-500 text-sm">Atau</span>
-            <div className="flex-1 border-t border-gray-300"></div>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Atau</span>
+            </div>
           </div>
 
           {/* Register Link */}
@@ -141,12 +153,19 @@ export default function LoginPage() {
           </p>
 
           {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm text-gray-700 font-semibold mb-2">Demo Akun:</p>
-            <p className="text-sm text-gray-600">Email: admin@notaris.com</p>
-            <p className="text-sm text-gray-600">Password: admin123</p>
+          <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 space-y-2">
+            <p className="text-sm text-gray-700 font-semibold">📌 Demo Akun:</p>
+            <div className="text-sm text-gray-600 space-y-1 font-mono">
+              <p><span className="font-semibold">Email:</span> admin@notaris.com</p>
+              <p><span className="font-semibold">Password:</span> admin123</p>
+            </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <p className="text-center text-blue-100 text-xs mt-6">
+          © 2025 eNotaris. Semua hak dilindungi.
+        </p>
       </div>
     </div>
   );
