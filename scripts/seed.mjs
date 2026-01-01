@@ -161,12 +161,33 @@ console.log("✅ Created 4 jenis pajak");
 
     // 6) Jenis Proses
     await MasterJenisProses.insertMany([
-      { nama: "Persiapan Dokumen", deskripsi: "Tahap persiapan dokumen" },
-      { nama: "Verifikasi", deskripsi: "Tahap verifikasi data" },
-      { nama: "Penandatanganan", deskripsi: "Tahap penandatanganan" },
-      { nama: "Pengarsipan", deskripsi: "Tahap pengarsipan dokumen" },
-    ]);
-    console.log("✅ Created 4 jenis proses");
+  {
+    kode: "PRS",
+    nama: "Persiapan Dokumen",
+    deskripsi: "Tahap persiapan dokumen",
+    isActive: true,
+  },
+  {
+    kode: "VRF",
+    nama: "Verifikasi",
+    deskripsi: "Tahap verifikasi data",
+    isActive: true,
+  },
+  {
+    kode: "TTD",
+    nama: "Penandatanganan",
+    deskripsi: "Tahap penandatanganan",
+    isActive: true,
+  },
+  {
+    kode: "ARS",
+    nama: "Pengarsipan",
+    deskripsi: "Tahap pengarsipan dokumen",
+    isActive: true,
+  },
+]);
+console.log("✅ Created 4 jenis proses");
+
 
     // 7) Jenis Sertifikat
     await MasterJenisSertifikat.insertMany([
@@ -188,70 +209,86 @@ console.log("✅ Created 4 jenis pajak");
 
     // 9) Template Akta
     await MasterTemplateAkta.insertMany([
-      {
-        nama: "Template Akta Jual Beli Standard",
-        jenisAktaId: jenisAkta[0]._id,
-        isi: "Template isi untuk akta jual beli...",
-        status: "aktif",
-      },
-      {
-        nama: "Template Akta Pemberian Hak Standard",
-        jenisAktaId: jenisAkta[1]._id,
-        isi: "Template isi untuk akta pemberian hak...",
-        status: "aktif",
-      },
-    ]);
-    console.log("✅ Created 2 template akta");
+  {
+    kode: "TMP-AJB",
+    nama: "Template Akta Jual Beli Standard",
+    jenisAkta: "AJB",
+    content: "Template isi untuk akta jual beli...",
+    isActive: true,
+  },
+  {
+    kode: "TMP-APH",
+    nama: "Template Akta Pemberian Hak Standard",
+    jenisAkta: "APH",
+    content: "Template isi untuk akta pemberian hak...",
+    isActive: true,
+  },
+]);
+console.log("✅ Created 2 template akta");
+
 
     // 10) Kas/Bank
-    await MasterKasBank.insertMany([
-      {
-        nama: "Bank BCA - Rekening Notaris",
-        tipe: "bank",
-        nomorRekening: "1234567890",
-        bank: "BCA",
-        atasNama: "Eno Tari SH.M.Kn",
-        saldo: 50000000,
-        status: "aktif",
-      },
-      {
-        nama: "Kas Tunai Kantor",
-        tipe: "kas",
-        atasNama: "Eno Tari SH.M.Kn",
-        saldo: 10000000,
-        status: "aktif",
-      },
-    ]);
-    console.log("✅ Created 2 kas/bank");
+   await MasterKasBank.insertMany([
+  {
+    kode: "BANK-BCA",
+    nama: "Bank BCA - Rekening Notaris",
+    jenis: "Bank",
+    nomorRekening: "1234567890",
+    bankNama: "BCA",
+    atasNama: "Eno Tari SH.M.Kn",
+    saldo: 50000000,
+    isActive: true,
+  },
+  {
+    kode: "KAS-TUNAI",
+    nama: "Kas Tunai Kantor",
+    jenis: "Kas",
+    atasNama: "Eno Tari SH.M.Kn",
+    saldo: 10000000,
+    isActive: true,
+  },
+]);
+console.log("✅ Created 2 kas/bank");
+
 
     // 11) Partner
     await MasterPartner.insertMany([
-      {
-        nama: "CV Jaya Mandiri",
-        tipe: "perusahaan",
-        alamat: "Jl. Merdeka No.1, Makassar",
-        noTelepon: "0411-123456",
-        email: "info@jayamandiri.com",
-        status: "aktif",
-      },
-      {
-        nama: "PT Sejahtera Indonesia",
-        tipe: "perusahaan",
-        alamat: "Jl. Ahmad Yani No.50, Makassar",
-        noTelepon: "0411-654321",
-        email: "contact@sejahtera.com",
-        status: "aktif",
-      },
-      {
-        nama: "Notaris Mitra",
-        tipe: "notaris",
-        alamat: "Jl. Sudirman No.123, Makassar",
-        noTelepon: "0411-999999",
-        email: "notaris@mitra.com",
-        status: "aktif",
-      },
-    ]);
-    console.log("✅ Created 3 partners");
+  {
+    kode: "PRT-JAYA",
+    nama: "CV Jaya Mandiri",
+    jenisPartner: "Partner",
+    alamat: "Jl. Merdeka No.1, Makassar",
+    noTelepon: "0411-123456",
+    email: "info@jayamandiri.com",
+    provinsi: "Sulawesi Selatan",
+    kabKota: "Kota Makassar",
+    isActive: true,
+  },
+  {
+    kode: "PRT-SEJAHTERA",
+    nama: "PT Sejahtera Indonesia",
+    jenisPartner: "Partner",
+    alamat: "Jl. Ahmad Yani No.50, Makassar",
+    noTelepon: "0411-654321",
+    email: "contact@sejahtera.com",
+    provinsi: "Sulawesi Selatan",
+    kabKota: "Kota Makassar",
+    isActive: true,
+  },
+  {
+    kode: "NTR-MITRA",
+    nama: "Notaris Mitra",
+    jenisPartner: "Notaris",
+    alamat: "Jl. Sudirman No.123, Makassar",
+    noTelepon: "0411-999999",
+    email: "notaris@mitra.com",
+    provinsi: "Sulawesi Selatan",
+    kabKota: "Kota Makassar",
+    isActive: true,
+  },
+]);
+console.log("✅ Created 3 partners");
+
 
     // 12) Pelanggan
     const pelanggans = await Pelanggan.insertMany([
@@ -287,109 +324,120 @@ console.log("✅ Created 4 jenis pajak");
 
     // 13) Lembar Kerja
     const lembarkerja = await LembarKerja.insertMany([
-      {
-        nomorLembar: "LK/001/2025",
-        tanggal: new Date("2025-01-01"),
-        judulPekerjaan: "Akta Jual Beli Tanah",
-        jenisAktaId: jenisAkta[0]._id,
-        pelangganId: pelanggans[0]._id,
-        kotaId: kabkotas[0]._id,
-        deskripsi: "Pembuatan akta jual beli tanah di Makassar",
-        status: "DRAFT",
-        nilaiPekerjaan: 2500000,
-      },
-      {
-        nomorLembar: "LK/002/2025",
-        tanggal: new Date("2025-01-05"),
-        judulPekerjaan: "Akta Pemberian Hak Tanah",
-        jenisAktaId: jenisAkta[1]._id,
-        pelangganId: pelanggans[1]._id,
-        kotaId: kabkotas[0]._id,
-        deskripsi: "Pembuatan akta pemberian hak tanah",
-        status: "PERSETUJUAN",
-        nilaiPekerjaan: 2000000,
-      },
-      {
-        nomorLembar: "LK/003/2025",
-        tanggal: new Date("2025-01-10"),
-        judulPekerjaan: "Akta Cerai",
-        jenisAktaId: jenisAkta[2]._id,
-        pelangganId: pelanggans[2]._id,
-        kotaId: kabkotas[0]._id,
-        deskripsi: "Pembuatan akta cerai",
-        status: "PROSES",
-        nilaiPekerjaan: 1500000,
-      },
-      {
-        nomorLembar: "LK/004/2025",
-        tanggal: new Date("2024-12-15"),
-        judulPekerjaan: "Akta Perkawinan",
-        jenisAktaId: jenisAkta[3]._id,
-        pelangganId: pelanggans[0]._id,
-        kotaId: kabkotas[0]._id,
-        deskripsi: "Pembuatan akta perkawinan",
-        status: "SELESAI",
-        nilaiPekerjaan: 1800000,
-      },
-    ]);
-    console.log("✅ Created 4 lembar kerja");
+  {
+    noPesanan: "LK/001/2025",
+    namePelanggan: pelanggans[0].nama,
+    kategori: "Pribadi",
+    status: "Draft",
+    layanan: "Akta Jual Beli Tanah",
+    totalTagihan: 2500000,
+    totalDibayar: 0,
+    targetSelesai: new Date("2025-01-15"),
+  },
+  {
+    noPesanan: "LK/002/2025",
+    namePelanggan: pelanggans[1].nama,
+    kategori: "Pribadi",
+    status: "Persetujuan",
+    layanan: "Akta Pemberian Hak Tanah",
+    totalTagihan: 2000000,
+    totalDibayar: 0,
+    targetSelesai: new Date("2025-01-20"),
+  },
+  {
+    noPesanan: "LK/003/2025",
+    namePelanggan: pelanggans[2].nama,
+    kategori: "Pribadi",
+    status: "Proses",
+    layanan: "Akta Cerai",
+    totalTagihan: 1500000,
+    totalDibayar: 800000,
+    targetSelesai: new Date("2025-01-25"),
+  },
+  {
+    noPesanan: "LK/004/2025",
+    namePelanggan: pelanggans[0].nama,
+    kategori: "Perusahaan",
+    status: "Selesai",
+    layanan: "Akta Perkawinan",
+    totalTagihan: 1800000,
+    totalDibayar: 1800000,
+    targetSelesai: new Date("2024-12-30"),
+  },
+]);
+console.log("✅ Created 4 lembar kerja");
+
 
     // 14) Tagihan
-    const tagihans = await Tagihan.insertMany([
-      {
-        nomorTagihan: "TAG/001/2025",
-        tanggal: new Date("2025-01-01"),
-        lembarKerjaId: lembarkerja[0]._id,
-        pelangganId: pelanggans[0]._id,
-        jumlah: 2500000,
-        status: "BELUM_BAYAR",
-        deskripsi: "Tagihan untuk akta jual beli",
-      },
-      {
-        nomorTagihan: "TAG/002/2025",
-        tanggal: new Date("2025-01-05"),
-        lembarKerjaId: lembarkerja[1]._id,
-        pelangganId: pelanggans[1]._id,
-        jumlah: 2000000,
-        status: "BELUM_BAYAR",
-        deskripsi: "Tagihan untuk akta pemberian hak",
-      },
-      {
-        nomorTagihan: "TAG/003/2025",
-        tanggal: new Date("2025-01-10"),
-        lembarKerjaId: lembarkerja[2]._id,
-        pelangganId: pelanggans[2]._id,
-        jumlah: 1500000,
-        status: "SEBAGIAN_BAYAR",
-        deskripsi: "Tagihan untuk akta cerai",
-      },
-    ]);
-    console.log("✅ Created 3 tagihans");
+   const tagihans = await Tagihan.insertMany([
+  {
+    noTagihan: "TAG/001/2025",
+    lembarKerjaId: lembarkerja[0]._id,
+    noPesanan: lembarkerja[0].noPesanan,
+    namePelanggan: lembarkerja[0].namePelanggan,
+    jumlah: 2500000,
+    status: "Belum Bayar",
+    deskripsi: "Tagihan untuk Akta Jual Beli",
+    tanggalTagihan: new Date("2025-01-01"),
+    tanggalJatuhTempo: new Date("2025-01-15"),
+    sisaBayar: 2500000,
+  },
+  {
+    noTagihan: "TAG/002/2025",
+    lembarKerjaId: lembarkerja[1]._id,
+    noPesanan: lembarkerja[1].noPesanan,
+    namePelanggan: lembarkerja[1].namePelanggan,
+    jumlah: 2000000,
+    status: "Belum Bayar",
+    deskripsi: "Tagihan untuk Akta Pemberian Hak",
+    tanggalTagihan: new Date("2025-01-05"),
+    tanggalJatuhTempo: new Date("2025-01-20"),
+    sisaBayar: 2000000,
+  },
+  {
+    noTagihan: "TAG/003/2025",
+    lembarKerjaId: lembarkerja[2]._id,
+    noPesanan: lembarkerja[2].noPesanan,
+    namePelanggan: lembarkerja[2].namePelanggan,
+    jumlah: 1500000,
+    status: "Sebagian Bayar",
+    deskripsi: "Tagihan untuk Akta Cerai",
+    tanggalTagihan: new Date("2025-01-10"),
+    tanggalJatuhTempo: new Date("2025-01-25"),
+    sisaBayar: 700000,
+  },
+]);
+console.log("✅ Created 3 tagihans");
+
 
     // 15) Pembayaran
     await Pembayaran.insertMany([
-      {
-        nomorPembayaran: "BYR/001/2025",
-        tanggal: new Date("2025-01-08"),
-        tagihanId: tagihans[2]._id,
-        pelangganId: pelanggans[2]._id,
-        jumlah: 800000,
-        metodePembayaran: "transfer_bank",
-        status: "SELESAI",
-        keterangan: "Pembayaran sebagian akta cerai",
-      },
-      {
-        nomorPembayaran: "BYR/002/2025",
-        tanggal: new Date("2025-01-12"),
-        tagihanId: tagihans[2]._id,
-        pelangganId: pelanggans[2]._id,
-        jumlah: 700000,
-        metodePembayaran: "tunai",
-        status: "SELESAI",
-        keterangan: "Pembayaran sisa akta cerai",
-      },
-    ]);
-    console.log("✅ Created 2 pembayarans");
+  {
+    noPembayaran: "BYR/001/2025",
+    tagihanId: tagihans[2]._id,
+    noTagihan: tagihans[2].noTagihan,
+    namePelanggan: tagihans[2].namePelanggan,
+    jumlahBayar: 800000,
+    metodePembayaran: "Transfer Bank",
+    nomorReferensi: "TRF-001",
+    tanggalBayar: new Date("2025-01-08"),
+    keterangan: "Pembayaran sebagian akta cerai",
+    operator: "seed",
+  },
+  {
+    noPembayaran: "BYR/002/2025",
+    tagihanId: tagihans[2]._id,
+    noTagihan: tagihans[2].noTagihan,
+    namePelanggan: tagihans[2].namePelanggan,
+    jumlahBayar: 700000,
+    metodePembayaran: "Tunai",
+    tanggalBayar: new Date("2025-01-12"),
+    keterangan: "Pembayaran sisa akta cerai",
+    operator: "seed",
+  },
+]);
+console.log("✅ Created 2 pembayarans");
+
 
     console.log("\n✅ Database seeding completed successfully!");
     console.log("\n📝 Credentials:");
